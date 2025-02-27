@@ -19,8 +19,9 @@
     },
     "dependencies": {
         "@elizaos/client-direct": "workspace:*",
-        "@elizaos/plugin-bootstrap": "workspace:*",
+        "@elizaos/client-poker": "workspace:^",
         "@elizaos/core": "workspace:*",
+        "@elizaos/plugin-bootstrap": "workspace:*",
         "readline": "1.3.0",
         "ws": "8.18.0",
         "yargs": "17.7.2"
