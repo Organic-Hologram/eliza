@@ -10,44 +10,62 @@ export interface PokerDecision {
     amount?: number;
 }
 
+export interface Card {
+    suit: string;
+    rank: string;
+}
+
 export interface PlayerState {
     id: string;
     name: string;
-    index?: number;
-    chips?: number;
-    cards?: string[];
-    folded?: boolean;
-    position?: string;
-    currentBet?: number;
+    chips: number;
+    isReady: boolean;
+    currentBet: number;
+    isFolded: boolean;
+    hand?: Card[];
+}
+
+export interface WinnerInfo {
+    id: string;
+    name: string;
+    winningHand: Card[];
+    handDescription: string;
 }
 
 export interface GameState {
-    gameId: string;
-    pot: number;
-    smallBlind?: {
-        amount: number;
-        player: string;
-    };
-    bigBlind?: {
-        amount: number;
-        player: string;
-    };
-    communityCards: string[];
-    currentBet: number;
-    currentPlayerIndex?: number;
-    currentPlayerName?: string;
-    currentPlayer?: string;
+    id: string;
     players: PlayerState[];
     gameState: "waiting" | "preflop" | "flop" | "turn" | "river" | "showdown";
-    readyPlayers?: number;
-    totalPlayers?: number;
-    roundHistory?: string[];
-    playerHand?: string[];
-    playerChips?: number;
+    pot: number;
     isGameOver: boolean;
-    minRaise?: number;
-    maxRaise?: number;
-    status?: "waiting" | "playing" | "finished";
-    round?: "preflop" | "flop" | "turn" | "river" | "showdown";
-    actionHistory?: string[];
+    lastUpdateTime: string;
+    currentBet: number;
+    lastAction?: string;
+    lastRaiseAmount?: number;
+    currentPlayerIndex?: number;
+    communityCards: Card[];
+    roundHistory?: string[];
+    winner?: WinnerInfo;
+    finalHands?: Array<PlayerState & { hand: Card[] }>;
+    finalCommunityCards?: Card[];
+    finalPot?: number;
+}
+
+export interface AvailableGame {
+    id: string;
+    players: Array<{
+        id?: string;
+        name: string;
+        isReady: boolean;
+    }>;
+    createdAt: string;
+    state?: string;
+    playersNeeded?: number;
+}
+
+export interface AvailableGamesResponse {
+    games: AvailableGame[];
+    maxGames: number;
+    currentGames: number;
+    canCreateNew: boolean;
 }
